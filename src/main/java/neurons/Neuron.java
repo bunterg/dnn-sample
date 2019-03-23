@@ -6,14 +6,14 @@ public class Neuron {
     private Activator activator;
     private double[] weights;
     private double[] lastInputs;
-    private final double learningRate = 0.01f;
+    private final double learningRate = 0.01;
 
     public Neuron(Activator activator, int inputSize) {
         this.activator = activator;
         // Initialize all weights with small random numbers, between -1 and 1 
         this.weights = new double[inputSize + 1];
         for (int i = 0; i < inputSize + 1; i++) {
-            this.weights[i] = (Math.random() - 0.5f) * 2f;
+            this.weights[i] = (Math.random() - 0.5) * 2;
         }
     }
 
