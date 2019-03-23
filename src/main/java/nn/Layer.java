@@ -1,8 +1,8 @@
 package main.java.nn;
 
 public interface Layer {
-    public float[] Activate(float[] inputs);
+    public double[] Activate(double[] inputs);
     public int GetOutSize();
     public void SetPreviousLayer(Layer layer);
-    public void Learn(float[] results, float[] outputs);
+    public void Learn(double[] results, double[] outputs);
 }

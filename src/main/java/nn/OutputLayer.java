@@ -1,20 +1,22 @@
 package main.java.nn;
 
-import main.java.neurons.Neuron;
+import main.java.neurons.*;
+import main.java.activators.*;
 
 public class OutputLayer implements Layer {
     private int outSize;
+    private Activator activator;
     private Neuron[] neurons;
-    private Layer nextLayer, previousLayer;
+    private Layer previousLayer;
 
-    public HiddenLayer(int out, Activator activator, Layer layer) {
-        this.nextLayer = layer;
+    public OutputLayer(int out, Activator activator) {
+        this.activator = activator;
         this.neurons = new Neuron[out];
         this.outSize = out;
     }
 
-    public float[] Activate(float[] inputs) {
-        float[] outputs = new Float[this.neurons.length];
+    public double[] Activate(double[] inputs) {
+        double[] outputs = new double[this.neurons.length];
         for (int i = 0; i < this.neurons.length; i++) {
             outputs[i] = this.neurons[i].Activate(inputs);
         }
@@ -28,13 +30,13 @@ public class OutputLayer implements Layer {
     public void SetPreviousLayer(Layer layer) {
         this.previousLayer = layer;
         for (int i = 0; i < this.outSize; i++) {
-            this.neurons[i] = new Neuron(activator, this.previousLayer.GetOutSize());
+            this.neurons[i] = new Neuron(this.activator, this.previousLayer.GetOutSize());
         }
     }
 
-    public void Learn(float[] results, float[] outputs) {
+    public void Learn(double[] results, double[] outputs) {
         for (int i = 0; i < this.neurons.length; i++) {
-            this.neurons[i].updateWeights(results[i], outputs[i]);
+            this.neurons[i].UpdateWeights(results[i], outputs[i]);
         }
         this.previousLayer.Learn(results, outputs);
     }

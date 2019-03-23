@@ -4,12 +4,12 @@ public class SigmoidActivator implements Activator {
 
     public SigmoidActivator() {}
 
-    public float Activate(float value) {
+    public double Activate(double value) {
         return 1 / (1 + Math.exp(-value));
     }
 
-    public float Derivative(float value) {
-        float res = this.Activate(axions);
+    public double Derivative(double value) {
+        double res = this.Activate(value);
         return  res * ( 1 - res);
     }
 }

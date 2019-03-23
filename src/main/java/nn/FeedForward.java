@@ -16,20 +16,20 @@ public class FeedForward {
         this.inputLayer = new InputLayer(lastLayer, inputs);
     }
 
-    public float[] Run(float[] inputs) {
+    public double[] Run(double[] inputs) {
         return this.inputLayer.Activate(inputs);
     }
 
-    private void RunEpoch(float[][] inputsArr, float[][] outputsArr) {
+    private void RunEpoch(double[][] inputsArr, double[][] outputsArr) {
         for (int i = 0; i < inputsArr.length; i++) {
-            float[] inputs = inputsArr[i];
-            float[] outputs = outputsArr[i];
-            float[] results = this.run(inputs);
+            double[] inputs = inputsArr[i];
+            double[] outputs = outputsArr[i];
+            double[] results = this.run(inputs);
             this.outputLayer.Learn(results, outputs);
         }
     }
 
-    public void Train(float[][] inputs, float[][] outputs, int epoch) {
+    public void Train(double[][] inputs, double[][] outputs, int epoch) {
         for (int i = 0; i < epoch; i++) {
             this.RunEpoch(inputs, outputs);
         }

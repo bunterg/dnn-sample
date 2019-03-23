@@ -8,7 +8,7 @@ public class InputLayer implements Layer {
         this.inputSize = inputSize;
     }
 
-    public float[] Activate(float[] inputs) {
+    public double[] Activate(double[] inputs) {
         return this.nextLayer.Activate(inputs);
     }
 
@@ -17,4 +17,6 @@ public class InputLayer implements Layer {
     }
 
     public void SetPreviousLayer(Layer layer) { }
+
+    public void Learn(double[] results, double[] outputs) { }
 }
