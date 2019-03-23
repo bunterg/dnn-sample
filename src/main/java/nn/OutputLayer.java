@@ -1,5 +1,7 @@
 package main.java.nn;
 
+import main.java.neurons.Neuron;
+
 public class OutputLayer implements Layer {
     private int outSize;
     private Neuron[] neurons;
@@ -28,5 +30,12 @@ public class OutputLayer implements Layer {
         for (int i = 0; i < this.outSize; i++) {
             this.neurons[i] = new Neuron(activator, this.previousLayer.GetOutSize());
         }
+    }
+
+    public void Learn(float[] results, float[] outputs) {
+        for (int i = 0; i < this.neurons.length; i++) {
+            this.neurons[i].updateWeights(results[i], outputs[i]);
+        }
+        this.previousLayer.Learn(results, outputs);
     }
 }

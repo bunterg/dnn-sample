@@ -25,7 +25,7 @@ public class FeedForward {
             float[] inputs = inputsArr[i];
             float[] outputs = outputsArr[i];
             float[] results = this.run(inputs);
-            this.outputLayer.Learn(outputLayer);
+            this.outputLayer.Learn(results, outputs);
         }
     }
 
