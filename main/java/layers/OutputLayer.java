@@ -1,27 +1,26 @@
-package main.java.nn;
+package main.java.layers;
 
-import main.java.activators.*;
 import main.java.neurons.*;
+import main.java.activators.*;
 
-public class HiddenLayer implements Layer {
+public class OutputLayer implements Layer {
     private int outSize;
-    private Neuron[] neurons;
     private Activator activator;
-    private Layer nextLayer, previousLayer;
+    private Neuron[] neurons;
+    private Layer previousLayer;
 
-    public HiddenLayer(int out, Activator activator, Layer layer) {
+    public OutputLayer(int out, Activator activator) {
         this.activator = activator;
-        this.nextLayer = layer;
         this.neurons = new Neuron[out];
         this.outSize = out;
     }
 
     public double[] Activate(double[] inputs) {
         double[] outputs = new double[this.neurons.length];
-        for (int i = 1; i < this.neurons.length; i++) {
+        for (int i = 0; i < this.neurons.length; i++) {
             outputs[i] = this.neurons[i].Activate(inputs);
         }
-        return this.nextLayer.Activate(outputs);
+        return outputs;
     }
 
     public int GetOutSize() {
@@ -36,9 +35,10 @@ public class HiddenLayer implements Layer {
     }
 
     public void Learn(double[] results, double[] outputs) {
+        double[] errors = new double[this.neurons.length];
         for (int i = 0; i < this.neurons.length; i++) {
-            this.neurons[i].UpdateWeights(results[i], outputs[i]);
+            errors[i] = this.neurons[i].UpdateWeights(results[i], outputs[i]);
         }
-        this.previousLayer.Learn(results, outputs);
+        this.previousLayer.Learn(results, errors);
     }
 }

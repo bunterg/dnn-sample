@@ -1,16 +1,17 @@
-package main.java.nn;
+package main.java.layers;
 
-import main.java.neurons.*;
 import main.java.activators.*;
+import main.java.neurons.*;
 
-public class OutputLayer implements Layer {
+public class HiddenLayer implements Layer {
     private int outSize;
-    private Activator activator;
     private Neuron[] neurons;
-    private Layer previousLayer;
+    private Activator activator;
+    private Layer nextLayer, previousLayer;
 
-    public OutputLayer(int out, Activator activator) {
+    public HiddenLayer(int out, Activator activator, Layer layer) {
         this.activator = activator;
+        this.nextLayer = layer;
         this.neurons = new Neuron[out];
         this.outSize = out;
     }
@@ -20,7 +21,7 @@ public class OutputLayer implements Layer {
         for (int i = 0; i < this.neurons.length; i++) {
             outputs[i] = this.neurons[i].Activate(inputs);
         }
-        return outputs;
+        return this.nextLayer.Activate(outputs);
     }
 
     public int GetOutSize() {

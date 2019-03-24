@@ -1,4 +1,4 @@
-package main.java.nn;
+package main.java.layers;
 
 public class InputLayer implements Layer {
     private Layer nextLayer;

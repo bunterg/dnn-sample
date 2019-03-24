@@ -1,4 +1,4 @@
-package main.java.nn;
+package main.java.layers;
 
 public interface Layer {
     public double[] Activate(double[] inputs);

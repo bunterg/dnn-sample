@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.FileSystems;
 public class FFN {
-    private static final String FILENAME = "..\\sample_data\\data.txt";
+    private static final String FILENAME = "sample_data\\data.txt";
 
     public static void main (String[] args) {
         String file = new File(FILENAME).getAbsolutePath();
@@ -23,7 +23,7 @@ public class FFN {
         int outputSize = 10;
         double[][] inputs;
         double[][] outputs;
-
+        FeedForward ff = new FeedForward(inputSize, outputSize, new int[]{22,22} , new SigmoidActivator());
         // Path path = FileSystems.getDefault().getPath(FILENAME);
         // System.out.println(path);
         // BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
@@ -50,10 +50,6 @@ public class FFN {
                 outputs[j] = output;
                 j++;
             }
-
-            System.out.println(inputs.length);
-            System.out.println(outputs.length);
-            FeedForward ff = new FeedForward(256, 10, new int[]{22,22} , new SigmoidActivator());
             ff.Train(inputs, outputs, 5);
 		} catch (IOException e) {
 			e.printStackTrace();

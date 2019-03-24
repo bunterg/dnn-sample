@@ -1,19 +1,21 @@
 package main.java.nn;
 
+import main.java.layers.*;
 import main.java.activators.*;
 public class FeedForward {
     private InputLayer inputLayer;
     private OutputLayer outputLayer;
 
     public FeedForward(int inputs, int outputs, int[] hidden, Activator activator) {
-        OutputLayer outputLayer = new OutputLayer(outputs, activator);
-        Layer lastLayer = outputLayer;
-        for (int i = hidden.length - 1; i >= 0; i--) {
-            Layer layer = new HiddenLayer(lastLayer.GetOutSize(), activator, lastLayer);
+        this.outputLayer = new OutputLayer(outputs, activator);
+        Layer lastLayer = this.outputLayer;
+        for (int i = 0; i < hidden.length; i++) {
+            Layer layer = new HiddenLayer(hidden[i], activator, lastLayer);
             lastLayer.SetPreviousLayer(layer);
             lastLayer = layer;
         }
         this.inputLayer = new InputLayer(lastLayer, inputs);
+        lastLayer.SetPreviousLayer(this.inputLayer);
     }
 
     public double[] Run(double[] inputs) {

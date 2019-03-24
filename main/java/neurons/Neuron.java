@@ -30,8 +30,8 @@ public class Neuron {
         double deltaOut = result - output;
         double errorSignal = deltaOut * activator.Derivative(output);
         this.weights[0] = this.weights[0] + this.learningRate * errorSignal;
-        for (int i = 0; i < this.weights.length; i++) {
-            this.weights[i+1] = this.weights[i+1] + this.learningRate * errorSignal * this.lastInputs[i];
+        for (int i = 1; i < this.weights.length; i++) {
+            this.weights[i] = this.weights[i] + this.learningRate * errorSignal * this.lastInputs[i-1];
         }
         return errorSignal;
     }
